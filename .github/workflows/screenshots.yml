@@ -47,7 +47,7 @@ jobs:
 
       - name: Wait for live site
         env:
-          BASE: https://emasuriano.github.io/astro-frame-shift
+          BASE: https://gallery.stanlincat.com
         run: |
           set -e
           for i in $(seq 1 24); do
