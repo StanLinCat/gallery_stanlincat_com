@@ -1,6 +1,6 @@
 // Resize photos and strip all metadata (GPS location, camera info, ...)
 // before they go into the repo or get uploaded to Flickr/Unsplash.
-// Double-click 照片-放進網站.bat / 照片-準備上傳.bat, or run:
+// Double-click photos-for-site.bat / photos-for-upload.bat, or run:
 //
 //   yarn photos                      photos-inbox/ -> src/assets/photos/
 //   yarn photos --out photos-ready   photos-inbox/ -> photos-ready/ (for uploading)
@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const INBOX = 'photos-inbox';
 const MAX_EDGE = 2400;
@@ -30,13 +31,22 @@ function openFolder(folder) {
   }
 }
 
+// ASCII-only names: letters, digits, - and _. A name with nothing left
+// (e.g. all Chinese) becomes photo-<hash of the file>.
 function outputName(file) {
   const base = path
     .parse(file)
     .name.toLowerCase()
     .replace(/\s+/g, '-')
-    .replace(/[^\w\-一-鿿]+/g, '');
-  return `${base}.jpg`;
+    .replace(/[^a-z0-9_-]+/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+  if (base) return `${base}.jpg`;
+  const hash = createHash('md5')
+    .update(fs.readFileSync(path.join(INBOX, file)))
+    .digest('hex')
+    .slice(0, 8);
+  return `photo-${hash}.jpg`;
 }
 
 async function loadSharp() {

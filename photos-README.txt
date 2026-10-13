@@ -4,8 +4,8 @@
 這兩個工具會幫照片「縮小、轉正、移除 GPS 位置等隱藏資訊」，
 讓你可以放心把照片放上網站。
 
-  照片-放進網站.bat   照片要放在網站 repo 裡用
-  照片-準備上傳.bat   照片要上傳到 Flickr / Unsplash 用
+  photos-for-site.bat     照片要放在網站 repo 裡用
+  photos-for-upload.bat   照片要上傳到 Flickr / Unsplash 用
 
 
 一、使用步驟
@@ -16,11 +16,11 @@
 
 2. 雙擊其中一個 .bat：
 
-   ■ 照片-放進網站.bat
+   ■ photos-for-site.bat
      處理好的照片會放在 src\assets\photos
      完成後會自動打開那個資料夾
 
-   ■ 照片-準備上傳.bat
+   ■ photos-for-upload.bat
      處理好的照片會放在 photos-ready
      完成後會自動打開那個資料夾，把裡面的照片拿去上傳 Flickr / Unsplash
 
@@ -33,8 +33,9 @@
 - 移除照片裡的隱藏資訊：GPS 拍攝地點、相機型號、拍攝時間等
 - 手機直拍的照片會自動轉正
 - 長邊縮到最多 2400px，存成 JPG
-- 檔名改成小寫、空白換成 -
-  例：My Trip 台北.JPG → my-trip-台北.jpg
+- 檔名改成英文小寫、空白換成 -，中文字會被拿掉
+  例：My Trip 台北.JPG → my-trip.jpg
+  整個檔名都是中文的話，會變成 photo-一串英數字.jpg
 - 同名的照片已經處理過，就會略過，不會覆蓋
 
 
@@ -45,7 +46,7 @@
 
 【放在 repo 的照片】
   {
-    "src": "../assets/photos/my-trip-台北.jpg",
+    "src": "../assets/photos/my-trip.jpg",
     "alt": "照片內容的文字描述",
     "title": "照片標題",
     "description": "比較長的說明",
