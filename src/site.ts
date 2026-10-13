@@ -5,5 +5,5 @@ export const SITE = {
   tagline: '',
   description: 'A photography gallery by StanLinCat.',
   // Big heading at the top of the home and category pages
-  heading: 'Gallery',
+  heading: 'Stan Lin Cat Gallery',
 };
