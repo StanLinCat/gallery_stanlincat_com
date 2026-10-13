@@ -37,9 +37,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     />
     <link
       rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href={path.join(BASE_URL, 'favicon-96x96.png')}
+    />
+    <link
+      rel="icon"
       type="image/svg+xml"
       href={path.join(BASE_URL, 'favicon.svg')}
     />
+    <link rel="shortcut icon" href={path.join(BASE_URL, 'favicon.ico')} />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={path.join(BASE_URL, 'apple-touch-icon.png')}
+    />
+    <meta name="apple-mobile-web-app-title" content={SITE.name} />
+    <link rel="manifest" href={path.join(BASE_URL, 'site.webmanifest')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
