@@ -40,7 +40,7 @@ const { category, images, allCategories } = Astro.props;
     <h1
       class="font-display mb-8 text-5xl font-normal tracking-wide text-ink"
     >
-      Gallery
+      {SITE.heading}
     </h1>
 
     <CategoryFilters categories={allCategories} active={slugify(category)} />

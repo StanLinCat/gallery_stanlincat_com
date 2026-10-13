@@ -16,12 +16,14 @@ const allCategories = [
 ].sort((a, b) => a.localeCompare(b));
 ---
 
-<Layout title={`${SITE.name} — ${SITE.tagline}`}>
+<Layout
+  title={SITE.tagline ? `${SITE.name} — ${SITE.tagline}` : SITE.name}
+>
   <div class="container mx-auto px-6 py-16">
     <h1
       class="font-display mb-8 text-5xl font-normal tracking-wide text-ink"
     >
-      Gallery
+      {SITE.heading}
     </h1>
 
     <CategoryFilters categories={allCategories} active="all" />
