@@ -13,5 +13,5 @@ export const SITE = {
   // own photo (home, about, ...) is shared on LINE / Facebook
   shareImage: '20240926_105548.jpg',
   // Cloudflare Web Analytics token; '' turns analytics off
-  cloudflareAnalyticsToken: '',
+  cloudflareAnalyticsToken: 'a0dd389b8fad44158f73ec2419773f1c',
 };
