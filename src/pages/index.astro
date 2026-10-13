@@ -7,7 +7,10 @@ import { categoriesOf } from '../utils/categories';
 import { SITE } from '../site';
 
 const collection = await getCollection('gallery');
-const images = collection.map((a) => ({ ...a.data, id: a.id }));
+// Newest photos first
+const images = collection
+  .map((a) => ({ ...a.data, id: a.id }))
+  .sort((a, b) => b.date.localeCompare(a.date));
 const allCategories = [
   ...new Set(images.flatMap((img) => categoriesOf(img))),
 ].sort((a, b) => a.localeCompare(b));

@@ -14,13 +14,23 @@ function slugify(text: string): string {
     .replace(/-+$/, '');
 }
 
+// Page URL id: English titles become slugs ("Blue Fluid Trails" ->
+// blue-fluid-trails). Titles with other characters (e.g. Chinese) would
+// slugify to nothing, so those use the image file name instead.
+function idFor(item: { title: string; src: string }): string {
+  const fromTitle = slugify(item.title);
+  if (/^[\x00-\x7F]*$/.test(item.title) && fromTitle) return fromTitle;
+  const fileName = item.src.split("?")[0].split("/").pop() ?? "";
+  return slugify(fileName.replace(/\.[^.]+$/, ""));
+}
+
 const gallery = defineCollection({
   loader: file("src/data/gallery.json", {
     parser: (text) => {
       const data = JSON.parse(text);
       return data.map((item: any) => ({
         ...item,
-        id: slugify(item.title),
+        id: idFor(item),
       }));
     },
   }),
