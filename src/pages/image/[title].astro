@@ -60,7 +60,12 @@ async function getLargeSrc(src: typeof image.src): Promise<string> {
 }
 
 const largeSrc = await getLargeSrc(image.src);
-const ogImage = new URL(largeSrc, Astro.site).href;
+// Share preview: a 1200px JPG works in every app (LINE, Facebook, ...)
+const ogSrc =
+  typeof image.src === 'string'
+    ? largeSrc
+    : (await getImage({ src: image.src, width: 1200, format: 'jpg' })).src;
+const ogImage = new URL(ogSrc, Astro.site).href;
 ---
 
 <Layout

@@ -1,6 +1,27 @@
+# License
+
+This repository contains two kinds of material under different terms.
+
+## Photographs — All Rights Reserved
+
+Copyright (c) 2022-2026 StanLinCat. All rights reserved.
+
+All photographs in `src/assets/photos/`, and all photos published on
+https://gallery.stanlincat.com, are the exclusive property of StanLinCat.
+They are NOT covered by the MIT License below. No part of them may be copied,
+reproduced, modified, distributed, published, or used in any form (including
+for training machine learning models) without prior written permission from
+StanLinCat. See https://gallery.stanlincat.com/copyright/ for details.
+
+## Source code — MIT License
+
+The website source code is based on Astro Frame Shift by Ema Suriano
+(https://github.com/EmaSuriano/astro-frame-shift).
+
 MIT License
 
 Copyright (c) 2026 Ema Suriano
+Copyright (c) 2026 StanLinCat (modifications)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

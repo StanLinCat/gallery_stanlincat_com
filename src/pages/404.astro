@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../site';
+
+const { BASE_URL } = import.meta.env;
+---
+
+<Layout title={`Page not found — ${SITE.name}`}>
+  <div class="container mx-auto max-w-2xl px-6 py-32 text-center">
+    <p class="mb-4 font-light tracking-widest text-muted">404</p>
+    <h1 class="font-display mb-6 text-5xl font-normal tracking-wide text-ink">
+      Page not found
+    </h1>
+    <p class="mb-10 font-light text-muted">
+      This photo or page doesn't exist, or it may have moved.
+    </p>
+    <a
+      href={BASE_URL}
+      class="inline-block rounded-full border border-rule px-6 py-2 font-light text-ink transition-colors duration-300 hover:border-accent hover:text-accent"
+    >
+      Back to Gallery
+    </a>
+  </div>
+</Layout>

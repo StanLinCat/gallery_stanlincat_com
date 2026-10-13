@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import path from 'path';
+import { SITE } from '../site';
+
+const { BASE_URL } = import.meta.env;
+const link = 'text-accent underline-offset-4 hover:underline';
+---
+
+<Layout
+  title={`About — ${SITE.name}`}
+  description={`About ${SITE.name}, a personal photo collection by ${SITE.author}.`}
+>
+  <div class="container mx-auto max-w-2xl px-6 py-16">
+    <a
+      href={BASE_URL}
+      class="mb-12 inline-block font-light text-muted transition-colors duration-300 hover:text-accent"
+    >
+      ← Back to Gallery
+    </a>
+
+    <h1 class="font-display mb-8 text-5xl font-normal tracking-wide text-ink">
+      About
+    </h1>
+
+    <div class="space-y-5 font-light leading-relaxed text-ink">
+      <p>Hi, I'm {SITE.author}.</p>
+      <p>
+        This gallery is my personal collection of everyday moments: meals worth
+        remembering, sunsets from the window, trips to the sea, and the small
+        things I didn't want to forget.
+      </p>
+      <p>
+        I write about other things on my blog,{' '}
+        <a href={SITE.blogUrl} class={link}>{new URL(SITE.blogUrl).host}</a>.
+        You can also find me on{' '}
+        <a href={SITE.githubUrl} class={link}>GitHub</a>.
+      </p>
+      <p class="text-muted">
+        All photos are taken by me and are protected by copyright. See the{' '}
+        <a href={path.join(BASE_URL, 'copyright')} class={link}>copyright page</a>
+        {' '}before using any of them.
+      </p>
+    </div>
+  </div>
+</Layout>

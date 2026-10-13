@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../site';
+
+const { BASE_URL } = import.meta.env;
+const link = 'text-accent underline-offset-4 hover:underline';
+const year = new Date().getFullYear();
+---
+
+<Layout
+  title={`Copyright — ${SITE.name}`}
+  description={`Copyright and usage terms for the photos on ${SITE.name}.`}
+>
+  <div class="container mx-auto max-w-2xl px-6 py-16">
+    <a
+      href={BASE_URL}
+      class="mb-12 inline-block font-light text-muted transition-colors duration-300 hover:text-accent"
+    >
+      ← Back to Gallery
+    </a>
+
+    <h1 class="font-display mb-8 text-5xl font-normal tracking-wide text-ink">
+      Copyright
+    </h1>
+
+    <div class="space-y-8 font-light leading-relaxed text-ink">
+      <section class="space-y-3">
+        <h2 class="text-xl font-normal">Photos</h2>
+        <p>
+          All photographs on this website are &copy; {year} {SITE.author}. All
+          rights reserved.
+        </p>
+        <p>
+          You may not copy, download for reuse, republish, edit, or use these
+          photos in any form, commercial or non-commercial, without my written
+          permission. This includes use on other websites, social media,
+          printed material, and for training AI models.
+        </p>
+        <p>Sharing a link to a page on this site is always welcome.</p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-normal">Asking for permission</h2>
+        <p>
+          If you'd like to use a photo, please contact me through my blog at{' '}
+          <a href={SITE.blogUrl} class={link}>{new URL(SITE.blogUrl).host}</a>
+          {' '}and tell me which photo you want to use and how.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-normal">Website code</h2>
+        <p class="text-muted">
+          The website itself is built on the{' '}
+          <a href="https://github.com/EmaSuriano/astro-frame-shift" class={link}
+            >Astro Frame Shift</a
+          >
+          {' '}theme by Ema Suriano, released under the MIT License. The MIT
+          License covers the code only, not the photos.
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>

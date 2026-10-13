@@ -1,134 +1,66 @@
-# Astro Frame Shift - Minimalist Photo Gallery
+# Stan Gallery
 
-A clean, minimalist photo gallery built with Astro featuring smooth transitions, dark/light theme support, and responsive masonry layout.
+My personal photo gallery: everyday moments, food, sunsets and trips.
 
-This theme is **Astro 7 ready**.
+**Live site:** https://gallery.stanlincat.com
 
-## Screenshots 📸
+Built with [Astro](https://astro.build) on the
+[Astro Frame Shift](https://github.com/EmaSuriano/astro-frame-shift) theme by
+Ema Suriano, and hosted on GitHub Pages.
 
-Captured from the [live demo](https://gallery.stanlincat.com/) with [shot-scraper](https://github.com/simonw/shot-scraper). Light and dark run as parallel CI jobs via [`shots-light.yml`](shots-light.yml) / [`shots-dark.yml`](shots-dark.yml) (workflow: [`.github/workflows/screenshots.yml`](.github/workflows/screenshots.yml)). Home, Category, and Image detail.
+## Adding photos
 
-| Light | Dark |
-| ----- | ---- |
-| ![Home - Light](screenshots/home-light.png) | ![Home - Dark](screenshots/home-dark.png) |
-| ![Category - Light](screenshots/category-light.png) | ![Category - Dark](screenshots/category-dark.png) |
-| ![Image - Light](screenshots/image-light.png) | ![Image - Dark](screenshots/image-dark.png) |
+1. Put new photos in `photos-inbox/`
+2. Double-click `photos-for-site.bat`: photos are rotated, resized to max
+   2400px and stripped of GPS/EXIF data, then saved to `src/assets/photos/`
+3. Add an entry for each photo to `src/data/gallery.json`:
 
-## ✨ Features
+   ```json
+   {
+     "src": "../assets/photos/20240926_105548.jpg",
+     "alt": "What is in the photo, for screen readers and search engines",
+     "title": "Island Beach",
+     "description": "A sentence or two shown on the photo page.",
+     "categories": ["Travel", "Beach"],
+     "date": "2024-09-26",
+     "photographer": "StanLinCat"
+   }
+   ```
 
-- **Minimalist Design**: Clean, borderless interface with no shadows or visual clutter
-- **Dark/Light Theme**: Persistent theme switching with smooth transitions
-- **Responsive Masonry Layout**: CSS-based masonry layout that adapts to all screen sizes
-- **Image Validation**: Build-time TypeScript script to verify all image URLs are working
-- **Smooth Transitions**: Astro View Transitions for seamless navigation between pages
-- **Category routes**: Filter tags are real pages (`/category/{slug}/`) so view transitions work; client-side hide broke them
-- **Hover Effects**: Image information appears only on hover for maximum minimalism
-- **Performance Optimized**: Static site generation with optimized images using Astro's Image component
+   `src` can also be a full image URL (Flickr, Unsplash, ...). Use
+   `photos-for-upload.bat` to prepare photos for uploading elsewhere.
+   See `photos-README.txt` for step-by-step instructions.
 
-## 🎨 Design Philosophy
+## Site settings
 
-This gallery embraces ultra-minimalism:
+Site name, home heading, description, blog link, share image and analytics
+token live in `src/site.ts`. The About and Copyright pages are
+`src/pages/about.astro` and `src/pages/copyright.astro`.
 
-- No borders or shadows
-- Clean typography with Inter and JetBrains Mono fonts
-- Information only appears on hover
-- Stone/slate color palette for subtle elegance
-- Generous white space and clean layouts
+## Commands
 
-## 🚀 Project Structure
+| Command                      | Action                                     |
+| :--------------------------- | :----------------------------------------- |
+| `npx yarn@1 install`         | Install dependencies                       |
+| `npm run dev`                | Start the local dev server at `localhost:4321` |
+| `npx yarn@1 build`           | Check photos and build the site to `dist/` |
+| `npx yarn@1 photos`          | Same as `photos-for-site.bat`              |
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── ThemeToggle.astro          # Dark/light theme toggle
-│   ├── content/
-│   │   └── config.ts                  # Content collection schema
-│   ├── data/
-│   │   └── gallery.json               # 60+ curated images with metadata
-│   ├── layouts/
-│   │   └── Layout.astro               # Main layout with theme persistence
-│   ├── pages/
-│   │   ├── index.astro                # Gallery grid page
-│   │   └── image/
-│   │       └── [id].astro             # Individual image detail page
-│   └── styles/
-│       └── global.css                 # Global styles
-├── scripts/
-│   └── check-images.ts                # Image URL validation script
-└── package.json
+Pushing to `main` deploys the site automatically
+(`.github/workflows/deploy.yml`).
+
+## Syncing theme updates
+
+This repo is a fork of `EmaSuriano/astro-frame-shift`:
+
+```bash
+git fetch upstream
+git merge upstream/main
 ```
 
-## 🖼️ Gallery Features
+## License
 
-- **60+ Images**: Diverse collection spanning multiple categories
-- **Category Organization**: Architecture, Nature, Street Photography, Portraits, and more
-- **Photographer Attribution**: Credit with optional links to photographer profiles
-- **Related Images**: Images can have multiple categories; related images are ranked by tag overlap
-- **Responsive Images**: Optimized loading with Astro's Image component
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `yarn install`         | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn build`           | Build your production site to `./dist/`          |
-| `yarn preview`         | Preview your build locally, before deploying     |
-| `yarn check-images`    | Validate all gallery image URLs                  |
-| `yarn astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn astro -- --help` | Get help using the Astro CLI                     |
-
-## 🛠️ Development
-
-### Adding New Images
-
-Edit `src/data/gallery.json` to add new images:
-
-```json
-{
-  "src": "https://example.com/image.jpg",
-  "alt": "Image description",
-  "title": "Image Title",
-  "description": "Detailed description of the image",
-  "categories": ["Primary Tag", "Secondary Tag"],
-  "date": "2024-01-01",
-  "photographer": "Photographer Name",
-  "photographerLink": "https://photographer-website.com"
-}
-```
-
-### Image Validation
-
-The project includes automatic image URL validation:
-
-- Run `yarn check-images` to verify all URLs are accessible
-- Validation runs automatically during build process
-- Failed URLs are reported for manual review
-
-### Theme Customization
-
-The project uses Tailwind CSS with a stone/slate color palette:
-
-- Light mode: Stone colors (warm, neutral)
-- Dark mode: Slate colors (cool blue-gray undertones)
-- Easy to customize in `tailwind.config.mjs`
-
-## 📱 Responsive Design
-
-- **Mobile First**: Optimized for mobile viewing
-- **Masonry Layout**: 1-4 columns based on screen size
-- **Touch Friendly**: Proper hover states and touch interactions
-- **Performance**: Lazy loading and optimized images
-
-## 🎯 Performance Features
-
-- **Static Site Generation**: Pre-rendered for maximum speed
-- **Image Optimization**: Automatic WebP conversion and responsive sizes
-- **View Transitions**: Smooth navigation without full page reloads
-- **Minimal JavaScript**: Theme persistence and hover effects only
-- **CSS-Based Masonry**: No JavaScript dependencies for layout
+- **Photos:** © StanLinCat. All rights reserved. Not covered by the MIT
+  License. See [LICENSE.md](LICENSE.md) and
+  https://gallery.stanlincat.com/copyright/.
+- **Code:** MIT License, based on Astro Frame Shift by Ema Suriano.
