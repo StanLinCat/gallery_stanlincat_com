@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gallery.stanlincat.com/sitemap-index.xml
