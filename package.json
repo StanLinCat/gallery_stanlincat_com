@@ -12,7 +12,7 @@
     "build:dev": "astro build --devOutput",
     "serve": "npx serve dist/",
     "check:images": "tsx scripts/check-images.ts",
-    "photos": "tsx scripts/prepare-photos.ts",
+    "photos": "node scripts/prepare-photos.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
