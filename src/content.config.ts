@@ -24,8 +24,10 @@ const gallery = defineCollection({
       }));
     },
   }),
-  schema: z.object({
-    src: z.string(),
+  // src: a full image URL (Flickr, Unsplash, ...) or a path relative to
+  // gallery.json for photos kept in the repo, e.g. "../assets/photos/x.jpg"
+  schema: ({ image }) => z.object({
+    src: z.union([z.string().url(), image()]),
     alt: z.string(),
     title: z.string(),
     description: z.string(),

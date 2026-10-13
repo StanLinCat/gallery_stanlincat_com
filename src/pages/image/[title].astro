@@ -1,11 +1,12 @@
 ---
 // src/pages/image/[title].astro
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import path from 'path';
 import { categoriesOf, formatCategories } from '../../utils/categories';
 import { SITE } from '../../site';
+import { thumbSize } from '../../utils/image';
 
 export async function getStaticPaths() {
   const RELATED_LIMIT = 8;
@@ -40,19 +41,32 @@ const { image, related } = Astro.props;
 const { BASE_URL } = import.meta.env;
 const categoryLabel = formatCategories(image);
 
-const largeUrl = new URL(image.src, 'https://images.unsplash.com');
-largeUrl.searchParams.set('w', '2400');
-largeUrl.searchParams.set('q', '80');
-largeUrl.searchParams.set('fit', 'max');
-largeUrl.searchParams.delete('h');
-largeUrl.searchParams.delete('crop');
-const largeSrc = largeUrl.toString();
+async function getLargeSrc(src: typeof image.src): Promise<string> {
+  // Repo photo: let Astro emit a resized copy
+  if (typeof src !== 'string') {
+    const large = await getImage({ src, width: Math.min(src.width, 2400) });
+    return large.src;
+  }
+  // Unsplash supports resizing via query params; other hosts get the URL as-is
+  const url = new URL(src);
+  if (url.hostname === 'images.unsplash.com') {
+    url.searchParams.set('w', '2400');
+    url.searchParams.set('q', '80');
+    url.searchParams.set('fit', 'max');
+    url.searchParams.delete('h');
+    url.searchParams.delete('crop');
+  }
+  return url.toString();
+}
+
+const largeSrc = await getLargeSrc(image.src);
+const ogImage = new URL(largeSrc, Astro.site).href;
 ---
 
 <Layout
   title={`${image.title} — ${SITE.name}`}
   description={image.description}
-  image={image.src}
+  image={ogImage}
 >
   <div class="container mx-auto px-6 py-16">
     <a
@@ -87,8 +101,7 @@ const largeSrc = largeUrl.toString();
           <Image
             src={image.src}
             alt={image.alt}
-            width="800"
-            height="800"
+            {...thumbSize(image.src)}
             class="w-auto h-auto object-contain max-h-[85vh] max-w-full"
             loading="eager"
           />
@@ -185,8 +198,7 @@ const largeSrc = largeUrl.toString();
                       src={image.src}
                       alt={image.alt}
                       loading={i < 5 ? 'eager' : 'lazy'}
-                      width="800"
-                      height="800"
+                      {...thumbSize(image.src)}
                       class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-102"
                     />
                     <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300 flex items-center justify-center pointer-events-none">

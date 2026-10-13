@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 
 import fs from 'fs';
+import path from 'path';
 import https from 'https';
 import http from 'http';
 import { URL } from 'url';
@@ -34,6 +35,14 @@ const galleryData: GalleryImage[] = JSON.parse(
 console.log(`\n🔍 Checking ${galleryData.length} image URLs...\n`);
 
 async function checkImageUrl(imageData: GalleryImage): Promise<ValidationResult> {
+  // Repo photos are paths relative to gallery.json, not URLs
+  if (!/^https?:\/\//.test(imageData.src)) {
+    const file = path.resolve('./src/data', imageData.src);
+    const ok = fs.existsSync(file);
+    console.log(`${ok ? '✅' : '❌'} ID ${imageData.id}: ${imageData.title} - ${ok ? 'local file' : 'missing ' + file}`);
+    return { id: imageData.id, title: imageData.title, url: imageData.src, status: ok ? 200 : 404, ok };
+  }
+
   return new Promise((resolve) => {
     const url = new URL(imageData.src);
     const client = url.protocol === 'https:' ? https : http;
