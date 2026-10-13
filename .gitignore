@@ -23,3 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .claude/
+# photo tool: originals and upload-ready copies stay local
+photos-inbox/
+photos-ready/

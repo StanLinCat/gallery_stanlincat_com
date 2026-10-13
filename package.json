@@ -12,6 +12,7 @@
     "build:dev": "astro build --devOutput",
     "serve": "npx serve dist/",
     "check:images": "tsx scripts/check-images.ts",
+    "photos": "tsx scripts/prepare-photos.ts",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.2.1",
+    "sharp": "^0.35.4",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
   }
