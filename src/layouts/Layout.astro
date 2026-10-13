@@ -3,13 +3,17 @@ import { ClientRouter } from 'astro:transitions';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import '../styles/global.css';
 import path from 'path';
+import { SITE } from '../site';
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = SITE.description, image } = Astro.props;
 const { BASE_URL } = import.meta.env;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -18,6 +22,19 @@ const { BASE_URL } = import.meta.env;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href={path.join(BASE_URL, 'sitemap-index.xml')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta
+      name="twitter:card"
+      content={image ? 'summary_large_image' : 'summary'}
+    />
     <link
       rel="icon"
       type="image/svg+xml"

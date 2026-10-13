@@ -5,6 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import path from 'path';
 import { categoriesOf, formatCategories } from '../../utils/categories';
+import { SITE } from '../../site';
 
 export async function getStaticPaths() {
   const RELATED_LIMIT = 8;
@@ -48,7 +49,11 @@ largeUrl.searchParams.delete('crop');
 const largeSrc = largeUrl.toString();
 ---
 
-<Layout title={`${image.title} — Frame Shift`}>
+<Layout
+  title={`${image.title} — ${SITE.name}`}
+  description={image.description}
+  image={image.src}
+>
   <div class="container mx-auto px-6 py-16">
     <a
       href={BASE_URL}
