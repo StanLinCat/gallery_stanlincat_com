@@ -158,6 +158,20 @@ const year = new Date().getFullYear();
           <a href={SITE.blogUrl} class="transition-colors hover:text-accent"
             >Blog</a
           >
+          {
+            SITE.supportUrl && (
+              <>
+                {' · '}
+                <a
+                  href={SITE.supportUrl}
+                  rel="noopener"
+                  class="transition-colors hover:text-accent"
+                >
+                  Buy me a coffee
+                </a>
+              </>
+            )
+          }
         </nav>
         <p class="mt-2">
           {'Theme: '}

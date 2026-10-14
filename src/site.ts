@@ -9,6 +9,8 @@ export const SITE = {
   author: 'StanLinCat',
   blogUrl: 'https://www.stanlincat.com',
   githubUrl: 'https://github.com/StanLinCat',
+  // Ko-fi page for tips; '' hides the support links
+  supportUrl: 'https://ko-fi.com/stanlincat',
   // Photo in src/assets/photos used as the preview when a page without its
   // own photo (home, about, ...) is shared on LINE / Facebook
   shareImage: '20240926_105548.jpg',

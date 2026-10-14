@@ -36,6 +36,17 @@ const link = 'text-accent underline-offset-4 hover:underline';
         You can also find me on{' '}
         <a href={SITE.githubUrl} class={link}>GitHub</a>.
       </p>
+      {
+        SITE.supportUrl && (
+          <p>
+            If you enjoy these photos, you can{' '}
+            <a href={SITE.supportUrl} rel="noopener" class={link}>
+              buy me a coffee on Ko-fi
+            </a>
+            . Thank you!
+          </p>
+        )
+      }
       <p class="text-muted">
         All photos are taken by me and are protected by copyright. See the{' '}
         <a href={path.join(BASE_URL, 'copyright')} class={link}>copyright page</a>
